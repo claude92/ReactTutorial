@@ -82,9 +82,9 @@ class Game extends React.Component {
     getMoves(squares) {
         return squares.reduce((acc, v, i) => {
             if (v !== null && acc !== null) {
-                return acc + " C:" + (i % 3) + " R:" + Math.floor(i / 3);
+                return acc + " (C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")"
             } else if (v !== null) {
-                return " C:" + (i % 3) + " R:" + Math.floor(i / 3);
+                return " (C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")";
             }
             return acc;
         }, null)
