@@ -8,7 +8,7 @@ class Timer extends React.Component {
         this.state = { seconds: 0 }
     }
     tick() {
-        this.setState(state => ({ seconds: state.seconds + 1 }))
+        this.setState(state => { return { seconds: state.seconds + 1 } })
     }
     componentDidMount() {
         this.interval = setInterval(() => this.tick(), 1000);
