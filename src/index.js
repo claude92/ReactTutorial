@@ -77,14 +77,17 @@ class Game extends React.Component {
             history: [{ squares: Array(9).fill(null) }],
             stepNumber: 0,
             xIsNext: true,
+            lastMove: null
         }
     }
     getMoves(squares) {
         return squares.reduce((acc, v, i) => {
-            if (v !== null && acc !== null) {
-                return acc + " (C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")"
+            if (v !== null && i === this.state.lastMove) {
+                return (<span>{acc}<mark > {"(C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")"}</mark></span>)
+            } else if (v !== null && acc !== null) {
+                return (<span>{acc} {" (C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")"}</span>)
             } else if (v !== null) {
-                return " (C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")";
+                return (<span>{" (C:" + (i % 3) + " R:" + Math.floor(i / 3) + ")"}</span>);
             }
             return acc;
         }, null)
@@ -106,7 +109,8 @@ class Game extends React.Component {
         this.setState({
             history: history.concat([{ squares: squares }]),
             stepNumber: history.length,
-            xIsNext: !this.state.xIsNext
+            xIsNext: !this.state.xIsNext,
+            lastMove: i
         })
     }
     jumpTo(step) {
