@@ -49,7 +49,7 @@ const user = {
 
 /**
  *
- * jsp can contain child elements
+ * jsx can contain child elements
  */
 // const element = (
 //   <div>
@@ -60,7 +60,7 @@ const user = {
 
 
 /**
- * jsp in if(for),assign it,function argument,return argument
+ * jsx in if(for),assign it,function argument,return argument
  */
 function getGreeting(user) {
   if (user) {
@@ -80,7 +80,106 @@ function tick() {
       <h2>It is {new Date().toLocaleTimeString()}</h2>
     </div>
   )
-  ReactDOM.render(element,document.getElementById('root'));
+  ReactDOM.render(element, document.getElementById('root'));
 }
-setInterval(tick,1000);
-
+// setInterval(tick, 1000);
+/**
+ * Componenti 
+ */
+// function Ciao(props) {
+//   return <h1>Ciao,{props.name}</h1>
+// }
+/**
+ * ES6
+ */
+class Ciao extends React.Component {
+  render() {
+    return <h1>Ciao, {this.props.nome}</h1>
+  }
+}
+const elemento = <Ciao nome="Sara" />
+ReactDOM.render(
+  elemento,
+  document.getElementById('root')
+);
+/**
+ * Comporre Componenti
+ */
+function App() {
+  return (
+    <div>
+      <Ciao nome="Sara"></Ciao>
+      <Ciao nome="Cahal"></Ciao>
+      <Ciao nome="Edite"></Ciao>
+    </div>
+  )
+}
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+)
+/**
+ * Estrarre Componenti
+ */
+// function Commento(props) {
+//   return (
+//     <div className="Commento">
+//       <div className="InfoUtente">
+//         <img className="Avatar"
+//           src={props.autore.avatarUrl}
+//           alt={props.autore.nome}
+//         />
+//         <div className="InfoUtente-nome">
+//           {props.autore.nome}
+//         </div>
+//       </div>
+//       <div className="Commento-testo">
+//         {props.testo}
+//       </div>
+//       <div className="Commento-data">
+//         {formatDate(props.data)}
+//       </div>
+//     </div>
+//   )
+// }
+const utente = {
+  avatarUrl: '',
+  nome: 'Gianni'
+}
+const testo = 'prova';
+const data = new Date().toString();
+function Avatar(props) {
+  return (
+    <img className="Avatar"
+      src={props.utente.avatarUrl}
+      alt={"alt"+props.utente.nome}
+    />
+  )
+}
+function InfoUtente(props) {
+  return (
+    <div className="InfoUtente">
+      <Avatar utente={props.utente} />
+      <div className="InfoUtente-nome">
+        {props.utente.nome}
+      </div>
+    </div>
+  )
+}
+function formatDate(data) {
+  return data
+}
+function Commento(props) {
+  return (
+    <div className="Commento">
+      <InfoUtente utente={props.autore} />
+      <div className="Commento-testo">
+        {props.testo}
+      </div>
+      <div className="Commento-data">
+        {formatDate(props.data)}
+      </div>
+    </div>
+  )
+}
+ReactDOM.render(<Commento autore={utente} testo={testo} data={data} />, document.getElementById('root'))
